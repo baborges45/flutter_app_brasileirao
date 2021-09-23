@@ -72,9 +72,8 @@ class _AddTituloPageState extends State<AddTituloPage> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      widget.onSave(Titulo(
-                          ano: _ano.toString(),
-                          campeonato: _campeonato.toString()));
+                      widget.onSave(
+                          Titulo(ano: _ano.text, campeonato: _campeonato.text));
                     }
                   },
                   child: Row(

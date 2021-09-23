@@ -94,6 +94,12 @@ class _TimePageState extends State<TimePage> {
                 leading: Icon(Icons.emoji_events),
                 title: Text(widget.time.titulos[index].campeonato.toString()),
                 trailing: Text(widget.time.titulos[index].ano.toString()),
+                // onTap: () {
+                //   Get.to(
+                //     () => EditTituloPage(titulo: time.titulos[index]),
+                //     fullscreenDialog: true,
+                //   );
+                // },
               );
             },
             separatorBuilder: (_, __) => Divider(),
