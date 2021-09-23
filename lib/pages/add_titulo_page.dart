@@ -5,6 +5,9 @@ import 'package:app_brasileirao/models/titulos.dart';
 import 'package:app_brasileirao/repository/times_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/instance_manager.dart';
+import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
 
 class AddTituloPage extends StatefulWidget {
@@ -30,10 +33,15 @@ class _AddTituloPageState extends State<AddTituloPage> {
       ),
     );
 
-    Navigator.pop(context);
+    Get.back();
 
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('Salvo com sucesso!')));
+    Get.snackbar(
+      'Sucesso!',
+      'Título cadastrado!',
+      backgroundColor: Colors.grey[900],
+      colorText: Colors.white,
+      snackPosition: SnackPosition.BOTTOM,
+    );
   }
 
   @override
