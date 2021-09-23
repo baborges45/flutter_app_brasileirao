@@ -1,6 +1,9 @@
 import 'package:app_brasileirao/models/time.dart';
 import 'package:app_brasileirao/pages/time_page.dart';
+import 'package:app_brasileirao/repository/times_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
+import 'package:provider/provider.dart';
 
 import 'home_controller.dart';
 
@@ -27,27 +30,29 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Brasileirão'),
       ),
-      body: ListView.separated(
-        itemCount: controller.tabela.length,
-        itemBuilder: (BuildContext context, int time) {
-          final List<Time> tabela = controller.tabela;
-          return ListTile(
-            leading: Image.network(tabela[time].brasao.toString()),
-            title: Text(tabela[time].nome),
-            trailing: Text(tabela[time].pontos.toString()),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (_) => TimePage(
-                            key: Key(tabela[time].nome),
-                            time: tabela[time],
-                          )));
+      body: Consumer<TimesRepository>(
+        builder: (context, repositorio, child) {
+          return ListView.separated(
+            itemCount: repositorio.times.length,
+            itemBuilder: (BuildContext context, int time) {
+              final List<Time> tabela = repositorio.times;
+              return ListTile(
+                leading: Image.network(tabela[time].brasao.toString()),
+                title: Text(tabela[time].nome),
+                subtitle: Text('Titulos: ${tabela[time].titulos.length}'),
+                trailing: Text(tabela[time].pontos.toString()),
+                onTap: () {
+                  Get.to(() => TimePage(
+                        key: Key(tabela[time].nome),
+                        time: tabela[time],
+                      ));
+                },
+              );
             },
+            separatorBuilder: (_, __) => const Divider(),
+            padding: const EdgeInsets.all(16),
           );
         },
-        separatorBuilder: (_, __) => const Divider(),
-        padding: const EdgeInsets.all(16),
       ),
     );
   }

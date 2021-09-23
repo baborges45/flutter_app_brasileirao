@@ -3,7 +3,10 @@
 import 'package:app_brasileirao/models/time.dart';
 import 'package:app_brasileirao/models/titulos.dart';
 import 'package:app_brasileirao/pages/add_titulo_page.dart';
+import 'package:app_brasileirao/repository/times_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
+import 'package:provider/provider.dart';
 
 class TimePage extends StatefulWidget {
   Time time;
@@ -15,23 +18,7 @@ class TimePage extends StatefulWidget {
 
 class _TimePageState extends State<TimePage> {
   tituloPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => AddTituloPage(time: widget.time, onSave: addTitulo),
-      ),
-    );
-  }
-
-  addTitulo(Titulo titulo) {
-    setState(() {
-      widget.time.titulos.add(titulo);
-    });
-
-    Navigator.pop(context);
-
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('Salvo com sucesso!')));
+    Get.to(() => AddTituloPage(time: widget.time));
   }
 
   @override
@@ -80,7 +67,10 @@ class _TimePageState extends State<TimePage> {
   }
 
   Widget titulos() {
-    final quantidade = widget.time.titulos.length;
+    final time = Provider.of<TimesRepository>(context)
+        .times
+        .firstWhere((t) => t.nome == widget.time.nome);
+    final quantidade = time.titulos.length;
 
     return quantidade == 0
         ? Container(
@@ -92,8 +82,8 @@ class _TimePageState extends State<TimePage> {
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
                 leading: Icon(Icons.emoji_events),
-                title: Text(widget.time.titulos[index].campeonato.toString()),
-                trailing: Text(widget.time.titulos[index].ano.toString()),
+                title: Text(time.titulos[index].campeonato.toString()),
+                trailing: Text(time.titulos[index].ano.toString()),
                 // onTap: () {
                 //   Get.to(
                 //     () => EditTituloPage(titulo: time.titulos[index]),
