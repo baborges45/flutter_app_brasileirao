@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable
 
 import 'package:app_brasileirao/models/time.dart';
-import 'package:app_brasileirao/models/titulos.dart';
 import 'package:app_brasileirao/pages/add_titulo_page.dart';
+import 'package:app_brasileirao/pages/edit_titulo_page.dart';
 import 'package:app_brasileirao/repository/times_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
@@ -84,12 +84,12 @@ class _TimePageState extends State<TimePage> {
                 leading: Icon(Icons.emoji_events),
                 title: Text(time.titulos[index].campeonato.toString()),
                 trailing: Text(time.titulos[index].ano.toString()),
-                // onTap: () {
-                //   Get.to(
-                //     () => EditTituloPage(titulo: time.titulos[index]),
-                //     fullscreenDialog: true,
-                //   );
-                // },
+                onTap: () {
+                  Get.to(
+                    () => EditTituloPage(titulo: time.titulos[index]),
+                    fullscreenDialog: true,
+                  );
+                },
               );
             },
             separatorBuilder: (_, __) => Divider(),
