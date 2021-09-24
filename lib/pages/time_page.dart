@@ -4,6 +4,7 @@ import 'package:app_brasileirao/models/time.dart';
 import 'package:app_brasileirao/pages/add_titulo_page.dart';
 import 'package:app_brasileirao/pages/edit_titulo_page.dart';
 import 'package:app_brasileirao/repository/times_repository.dart';
+import 'package:app_brasileirao/widgets/brasao.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
@@ -52,7 +53,7 @@ class _TimePageState extends State<TimePage> {
             children: [
               Padding(
                 padding: EdgeInsets.all(24),
-                child: Image.network(widget.time.brasao.toString()),
+                child: Brasao(image: widget.time.brasao.toString(), width: 250),
               ),
               Text(
                 'Pontos: ${widget.time.pontos}',
